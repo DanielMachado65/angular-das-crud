@@ -8,13 +8,7 @@ import { StudentService } from '../../student/services/student.service';
   styleUrl: './homepage.component.css',
 })
 export class HomepageComponent implements OnInit {
-  constructor(
-    private studentsService: StudentService,
-    private coursesService: CourseService
-  ) {}
+  constructor() {}
 
-  ngOnInit(): void {
-    this.studentsService.all();
-    this.coursesService.all();
-  }
+  ngOnInit(): void {}
 }
