@@ -13,7 +13,7 @@
         <div class="form-group mt-3">
             <label for="name">Nome</label>
             <input [(ngModel)]="student.name" #name="ngModel" type="text" class="form-control" id="name" name="name"
-                minlength="3" placeholder="Nome" required>
+                minlength="3" placeholder="Nome" required />
             <div *ngIf="name.errors && (name.dirty || name.touched)" class="alert alert-danger">
                 <div [hidden]="!name.errors['required']">
                     Digite um nome válido!
@@ -26,7 +26,7 @@
         <div class="form-group mt-3">
             <label for="cpf">CPF*</label>
             <input [(ngModel)]="student.cpf" #cpf="ngModel" type="text" class="form-control" id="cpf" name="cpf"
-                minlength="11" maxlength="11" placeholder="CPF" required>
+                mask="000.000.000-00" placeholder="CPF" required />
             <div *ngIf="cpf.errors && (cpf.dirty || cpf.touched)" class="alert alert-danger">
                 <div [hidden]="!cpf.errors['required']">
                     Digite um CPF válido!
@@ -42,17 +42,20 @@
         <div class="form-group mt-3">
             <label for="email">Email*</label>
             <input [(ngModel)]="student.email" #email="ngModel" type="email" class="form-control" id="email"
-                name="email" placeholder="Email" required>
+                name="email" placeholder="Email" required (ngModelChange)="formatEmail()" />
             <div *ngIf="email.errors && (email.dirty || email.touched)" class="alert alert-danger">
                 <div [hidden]="!email.errors['required']">
                     Digite um email válido!
+                </div>
+                <div [hidden]="!email.errors['email']">
+                    O formato do email está incorreto!
                 </div>
             </div>
         </div>
         <div class="form-group mt-3">
             <label for="birthDate">Data de nascimento*</label>
             <input [(ngModel)]="student.birthDate" #birthDate="ngModel" type="date" class="form-control" id="birthDate"
-                name="birthDate" placeholder="Data de nascimento" required>
+                name="birthDate" placeholder="Data de nascimento" required />
             <div *ngIf="birthDate.errors && (birthDate.dirty || birthDate.touched)" class="alert alert-danger">
                 <div [hidden]="!birthDate.errors['required']">
                     Digite uma data de nascimento válida!
@@ -60,8 +63,7 @@
             </div>
         </div>
         <div class="form-group mt-3">
-            <button type="submit" class="btn btn-primary" [disabled]="!studentForm.form.valid"
-                (click)="insertStudent()">
+            <button type="submit" class="btn btn-primary" [disabled]="!studentForm.form.valid">
                 <i class="fa fa-save" aria-hidden="true"></i> Salvar
             </button>
         </div>

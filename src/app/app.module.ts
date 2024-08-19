@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { StudentModule } from './student/student.module';
 import { CourseModule } from './course/course.module';
 import { HomeModule } from './home/home.module';
+import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
 
 @NgModule({
   declarations: [AppComponent],
@@ -15,8 +16,10 @@ import { HomeModule } from './home/home.module';
     StudentModule,
     CourseModule,
     HomeModule,
+    NgxMaskDirective,
+    NgxMaskPipe,
   ],
-  providers: [],
+  providers: [provideNgxMask()],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

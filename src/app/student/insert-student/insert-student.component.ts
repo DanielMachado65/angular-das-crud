@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-insert-student',
   templateUrl: './insert-student.component.html',
-  styleUrl: './insert-student.component.css',
+  styleUrls: ['./insert-student.component.css'],
 })
 export class InsertStudentComponent {
   @ViewChild('studentForm') studentForm!: NgForm;
@@ -19,6 +19,12 @@ export class InsertStudentComponent {
     if (this.studentForm.form.valid) {
       this.studentService.save(this.student);
       this.router.navigate(['/students/list']);
+    }
+  }
+
+  formatEmail(): void {
+    if (this.student.email) {
+      this.student.email = this.student.email.trim().toLowerCase();
     }
   }
 }
