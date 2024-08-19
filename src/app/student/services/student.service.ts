@@ -21,6 +21,7 @@ export class StudentService {
 
   save(student: Student): void {
     const students = this.all();
+    student.id = new Date().getTime();
     students.push(student);
     localStorage.setItem(LS_STUDENTS, JSON.stringify(students));
   }
