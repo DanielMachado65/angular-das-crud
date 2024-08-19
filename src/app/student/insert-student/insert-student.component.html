@@ -15,10 +15,10 @@
             <input [(ngModel)]="student.name" #name="ngModel" type="text" class="form-control" id="name" name="name"
                 minlength="3" placeholder="Nome" required />
             <div *ngIf="name.errors && (name.dirty || name.touched)" class="alert alert-danger">
-                <div [hidden]="!name.errors['required']">
+                <div *ngIf="name.errors['required']">
                     Digite um nome válido!
                 </div>
-                <div [hidden]="!name.errors['minlength']">
+                <div *ngIf="name.errors['minlength']">
                     O nome deve conter no mínimo 3 caracteres.
                 </div>
             </div>
@@ -28,13 +28,13 @@
             <input [(ngModel)]="student.cpf" #cpf="ngModel" type="text" class="form-control" id="cpf" name="cpf"
                 mask="000.000.000-00" placeholder="CPF" required />
             <div *ngIf="cpf.errors && (cpf.dirty || cpf.touched)" class="alert alert-danger">
-                <div [hidden]="!cpf.errors['required']">
+                <div *ngIf="cpf.errors['required']">
                     Digite um CPF válido!
                 </div>
-                <div [hidden]="!cpf.errors['minlength']">
+                <div *ngIf="cpf.errors['minlength']">
                     O CPF deve conter no mínimo 11 caracteres.
                 </div>
-                <div [hidden]="!cpf.errors['maxlength']">
+                <div *ngIf="cpf.errors['maxlength']">
                     O CPF deve conter no máximo 11 caracteres.
                 </div>
             </div>
@@ -44,10 +44,10 @@
             <input [(ngModel)]="student.email" #email="ngModel" type="email" class="form-control" id="email"
                 name="email" placeholder="Email" required (ngModelChange)="formatEmail()" />
             <div *ngIf="email.errors && (email.dirty || email.touched)" class="alert alert-danger">
-                <div [hidden]="!email.errors['required']">
+                <div *ngIf="email.errors['required']">
                     Digite um email válido!
                 </div>
-                <div [hidden]="!email.errors['email']">
+                <div *ngIf="email.errors['email']">
                     O formato do email está incorreto!
                 </div>
             </div>
@@ -57,7 +57,7 @@
             <input [(ngModel)]="student.birthDate" #birthDate="ngModel" type="date" class="form-control" id="birthDate"
                 name="birthDate" placeholder="Data de nascimento" required />
             <div *ngIf="birthDate.errors && (birthDate.dirty || birthDate.touched)" class="alert alert-danger">
-                <div [hidden]="!birthDate.errors['required']">
+                <div *ngIf="birthDate.errors['required']">
                     Digite uma data de nascimento válida!
                 </div>
             </div>
