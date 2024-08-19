@@ -6,9 +6,12 @@ import { UpdateStudentComponent } from './student/update-student/update-student.
 import { InsertCourseComponent } from './course/insert-course/insert-course.component';
 import { ListCoursesComponent } from './course/list-courses/list-courses.component';
 import { UpdateCourseComponent } from './course/update-course/update-course.component';
+import { HomepageComponent } from './home/homepage/homepage.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'students/list', pathMatch: 'full' },
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
+  { path: 'home', component: HomepageComponent },
+
   // students
   { path: 'students', redirectTo: 'students/list' },
   { path: 'students/list', component: ListStudentsComponent },
