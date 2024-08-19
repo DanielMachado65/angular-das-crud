@@ -1,1 +1,40 @@
-<p>list-courses works!</p>
+<div class="container">
+    <h1>Lista de Cursos</h1>
+
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-striped table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nome</th>
+                        <th>Link</th>
+                        <th class="text-center">
+                            <a [routerLink]="['/courses/new']" href="#" title="Novo curso" alt="Novo curso"
+                                class="btn btn-xs btn-secondary">
+                                <i class="fas fa-plus" aria-hidden="true"></i> Novo Curso
+                            </a>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let course of courses">
+                        <td>{{ course.id }}</td>
+                        <td>{{ course.name }}</td>
+                        <td>{{ course.link }}</td>
+                        <td>
+                            <a [routerLink]="['/courses/update', course.id]" href="#" title="Editar" alt="Editar"
+                                class="btn btn-xs btn-primary">
+                                <i class="fas fa-edit" aria-hidden="true"></i> Editar
+                            </a>
+                            <a (click)="deleteCourse($event, course)" href="#" title="Excluir" alt="Excluir"
+                                class="btn btn-xs btn-danger">
+                                <i class="fas fa-trash-alt" aria-hidden="true"></i> Excluir
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

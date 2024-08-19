@@ -21,6 +21,7 @@ export class CourseService {
 
   save(course: Course): void {
     const courses = this.all();
+    course.id = new Date().getTime();
     courses.push(course);
     localStorage.setItem(LS_COURSES, JSON.stringify(courses));
   }
