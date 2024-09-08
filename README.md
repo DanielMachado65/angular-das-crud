@@ -9,5 +9,7 @@ Projeto feito por:
 ```bash
 npm install
 
+npm run start
+
 ng serve
 ```
