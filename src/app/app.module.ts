@@ -6,6 +6,8 @@ import { AppComponent } from './app.component';
 import { StudentModule } from './student/student.module';
 import { CourseModule } from './course/course.module';
 import { HomeModule } from './home/home.module';
+import { BaseService } from './shared/services/base.service';
+import { provideHttpClient } from '@angular/common/http';
 
 @NgModule({
   declarations: [AppComponent],
@@ -16,6 +18,7 @@ import { HomeModule } from './home/home.module';
     CourseModule,
     HomeModule,
   ],
+  providers: [BaseService, provideHttpClient()],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

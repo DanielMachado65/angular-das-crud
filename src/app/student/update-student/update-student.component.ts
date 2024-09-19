@@ -22,9 +22,15 @@ export class UpdateStudentComponent implements OnInit {
   ngOnInit(): void {
     if (this.route.snapshot.params['id']) {
       let id = +this.route.snapshot.params['id'];
-      const res = this.studentService.get(id);
-      if (res !== undefined) this.student = res;
-      else throw new Error('Estudante não encontrada: ' + id);
+      this.studentService.getStudent(id).subscribe({
+        next: (student) => {
+          if (student) this.student = student;
+          else throw new Error('Estudante não encontrada: ' + id);
+        },
+        error: (error) => {
+          console.log(error);
+        },
+      });
     } else {
       this.router.navigate(['/students/list']);
     }
@@ -32,8 +38,14 @@ export class UpdateStudentComponent implements OnInit {
 
   updateStudent(): void {
     if (this.studentForm.form.valid) {
-      this.studentService.update(this.student);
-      this.router.navigate(['/students/list']);
+      this.studentService.update(this.student).subscribe({
+        next: () => {
+          this.router.navigate(['/students/list']);
+        },
+        error: (error) => {
+          console.log(error);
+        },
+      });
     }
   }
 }

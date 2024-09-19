@@ -17,8 +17,14 @@ export class InsertStudentComponent {
 
   insertStudent(): void {
     if (this.studentForm.form.valid) {
-      this.studentService.save(this.student);
-      this.router.navigate(['/students/list']);
+      this.studentService.saveStudent(this.student).subscribe({
+        next: () => {
+          this.router.navigate(['/students/list']);
+        },
+        error: (error) => {
+          console.log(error);
+        },
+      });
     }
   }
 
@@ -42,7 +48,10 @@ export class InsertStudentComponent {
         value = value.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
       } else {
         // CNPJ
-        value = value.replace(/(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, '$1.$2.$3/$4-$5');
+        value = value.replace(
+          /(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/,
+          '$1.$2.$3/$4-$5'
+        );
       }
 
       this.student.cpf = value;

@@ -11,7 +11,7 @@ import { UpdateStudentComponent } from './update-student/update-student.componen
   declarations: [
     ListStudentsComponent,
     InsertStudentComponent,
-    UpdateStudentComponent
+    UpdateStudentComponent,
   ],
   imports: [CommonModule, RouterModule, FormsModule],
   providers: [StudentService],

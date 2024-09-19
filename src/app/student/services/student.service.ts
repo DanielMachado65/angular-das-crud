@@ -1,42 +1,64 @@
 import { Injectable } from '@angular/core';
 import { Student } from '../../shared/models/student.model';
-
-const LS_STUDENTS = 'STUDENTS';
+import { BaseService } from '../../shared/services/base.service';
+import { catchError, map, Observable, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
-export class StudentService {
-  constructor() {}
-
-  all(): Student[] {
-    const students = localStorage.getItem(LS_STUDENTS);
-    return students ? JSON.parse(students) : [];
+export class StudentService extends BaseService {
+  listStudents(): Observable<Student[]> {
+    return this.get<Student[]>('/students').pipe(
+      map((students) => {
+        return students ? students : [];
+      }),
+      catchError(() => {
+        return of([]);
+      })
+    );
   }
 
-  get(id: number): Student | undefined {
-    const students = this.all();
-    return students.find((s) => s.id === id);
+  getStudent(id: number): Observable<Student | null> {
+    return this.get<Student>('/students/' + id).pipe(
+      map((student) => {
+        return student ? student : null;
+      }),
+      catchError(() => {
+        return of(null);
+      })
+    );
   }
 
-  save(student: Student): void {
-    const students = this.all();
-    student.id = new Date().getTime();
-    students.push(student);
-    localStorage.setItem(LS_STUDENTS, JSON.stringify(students));
+  saveStudent(student: Student): Observable<Student | null> {
+    return this.post<Student>('/students', student).pipe(
+      map((student) => {
+        return student;
+      }),
+      catchError(() => {
+        return of(student);
+      })
+    );
   }
 
-  delete(student: Student): void {
-    const students = this.all();
-    const index = students.findIndex((s) => s.id === student.id);
-    students.splice(index, 1);
-    localStorage.setItem(LS_STUDENTS, JSON.stringify(students));
+  deleteStudent(student: Student): Observable<Student | null> {
+    return this.delete<Student>('/students/' + student.id).pipe(
+      map((student) => {
+        return student;
+      }),
+      catchError(() => {
+        return of(student);
+      })
+    );
   }
 
-  update(student: Student): void {
-    const students = this.all();
-    const index = students.findIndex((s) => s.id === student.id);
-    students[index] = student;
-    localStorage.setItem(LS_STUDENTS, JSON.stringify(students));
+  update(student: Student): Observable<Student | null> {
+    return this.put<Student>('/students/' + student.id, student).pipe(
+      map((student) => {
+        return student;
+      }),
+      catchError(() => {
+        return of(student);
+      })
+    );
   }
 }
