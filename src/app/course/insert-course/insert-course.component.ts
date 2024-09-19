@@ -17,8 +17,14 @@ export class InsertCourseComponent {
 
   insertCourse(): void {
     if (this.courseForm.form.valid) {
-      this.courseService.save(this.course);
-      this.router.navigate(['/courses/list']);
+      this.courseService.saveCourse(this.course).subscribe({
+        next: () => {
+          this.router.navigate(['/courses/list']);
+        },
+        error: (error) => {
+          console.log(error);
+        },
+      });
     }
   }
 }

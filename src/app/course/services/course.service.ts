@@ -1,42 +1,66 @@
 import { Injectable } from '@angular/core';
 import { Course } from '../../shared/models/course.model';
+import { BaseService } from '../../shared/services/base.service';
+import { catchError, map, Observable, of } from 'rxjs';
 
 const LS_COURSES = 'COURSES';
 
 @Injectable({
   providedIn: 'root',
 })
-export class CourseService {
-  constructor() {}
-
-  all(): Course[] {
-    const courses = localStorage.getItem(LS_COURSES);
-    return courses ? JSON.parse(courses) : [];
+export class CourseService extends BaseService {
+  listCourses(): Observable<Course[]> {
+    return this.get<Course[]>('/courses').pipe(
+      map((courses) => {
+        return courses ? courses : [];
+      }),
+      catchError(() => {
+        return of([]);
+      })
+    );
   }
 
-  get(id: number): Course | undefined {
-    const courses = this.all();
-    return courses.find((c) => c.id === id);
+  getCourse(id: number): Observable<Course | null> {
+    return this.get<Course>('/courses/' + id).pipe(
+      map((course) => {
+        return course ? course : null;
+      }),
+      catchError(() => {
+        return of(null);
+      })
+    );
   }
 
-  save(course: Course): void {
-    const courses = this.all();
-    course.id = new Date().getTime();
-    courses.push(course);
-    localStorage.setItem(LS_COURSES, JSON.stringify(courses));
+  saveCourse(course: Course): Observable<Course | null> {
+    return this.post<Course>('/courses', course).pipe(
+      map((course) => {
+        return course;
+      }),
+      catchError(() => {
+        return of(course);
+      })
+    );
   }
 
-  delete(course: Course): void {
-    const courses = this.all();
-    const index = courses.findIndex((c) => c.id === course.id);
-    courses.splice(index, 1);
-    localStorage.setItem(LS_COURSES, JSON.stringify(courses));
+  deleteCourse(course: Course): Observable<Course | null> {
+    return this.delete<Course>('/courses/' + course.id).pipe(
+      map((course) => {
+        return course;
+      }),
+      catchError(() => {
+        return of(course);
+      })
+    );
   }
 
-  update(course: Course): void {
-    const courses = this.all();
-    const index = courses.findIndex((c) => c.id === course.id);
-    courses[index] = course;
-    localStorage.setItem(LS_COURSES, JSON.stringify(courses));
+  updateCourse(course: Course): Observable<Course | null> {
+    return this.put<Course>('/courses/' + course.id, course).pipe(
+      map((course) => {
+        return course;
+      }),
+      catchError(() => {
+        return of(course);
+      })
+    );
   }
 }

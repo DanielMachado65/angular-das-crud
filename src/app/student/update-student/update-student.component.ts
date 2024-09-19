@@ -38,7 +38,7 @@ export class UpdateStudentComponent implements OnInit {
 
   updateStudent(): void {
     if (this.studentForm.form.valid) {
-      this.studentService.update(this.student).subscribe({
+      this.studentService.updateStudent(this.student).subscribe({
         next: () => {
           this.router.navigate(['/students/list']);
         },

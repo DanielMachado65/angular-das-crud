@@ -13,14 +13,34 @@ export class ListCoursesComponent {
   constructor(private courseService: CourseService) {}
 
   ngOnInit(): void {
-    this.courses = this.courseService.all();
+    this.courseService.listCourses().subscribe({
+      next: (courses) => {
+        this.courses = courses;
+      },
+      error: (error) => {
+        console.log(error);
+      },
+    });
   }
 
   deleteCourse($event: any, course: Course): void {
     $event.preventDefault();
     if (confirm('Deseja realmente excluir o curso?')) {
-      this.courseService.delete(course);
-      this.courses = this.courseService.all();
+      this.courseService.deleteCourse(course).subscribe({
+        next: () => {
+          this.courseService.listCourses().subscribe({
+            next: (courses) => {
+              this.courses = courses;
+            },
+            error: (error) => {
+              console.log(error);
+            },
+          });
+        },
+        error: (error) => {
+          console.log(error);
+        },
+      });
     }
   }
 }

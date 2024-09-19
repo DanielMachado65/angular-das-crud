@@ -51,7 +51,7 @@ export class StudentService extends BaseService {
     );
   }
 
-  update(student: Student): Observable<Student | null> {
+  updateStudent(student: Student): Observable<Student | null> {
     return this.put<Student>('/students/' + student.id, student).pipe(
       map((student) => {
         return student;

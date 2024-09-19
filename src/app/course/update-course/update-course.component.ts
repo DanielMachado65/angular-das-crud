@@ -22,9 +22,15 @@ export class UpdateCourseComponent implements OnInit {
   ngOnInit(): void {
     if (this.route.snapshot.params['id']) {
       let id = +this.route.snapshot.params['id'];
-      const res = this.courseService.get(id);
-      if (res !== undefined) this.course = res;
-      else throw new Error('Curso não encontrado: ' + id);
+      this.courseService.getCourse(id).subscribe({
+        next: (course) => {
+          if (course) this.course = course;
+          else throw new Error('Curso não encontrado: ' + id);
+        },
+        error: (error) => {
+          console.log(error);
+        },
+      });
     } else {
       this.router.navigate(['/courses/list']);
     }
@@ -32,8 +38,14 @@ export class UpdateCourseComponent implements OnInit {
 
   updateCourse(): void {
     if (this.courseForm.form.valid) {
-      this.courseService.update(this.course);
-      this.router.navigate(['/courses/list']);
+      this.courseService.updateCourse(this.course).subscribe({
+        next: () => {
+          this.router.navigate(['/courses/list']);
+        },
+        error: (error) => {
+          console.log(error);
+        },
+      });
     }
   }
 }
