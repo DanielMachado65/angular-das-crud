@@ -30,7 +30,10 @@ export class EnrollmentService extends BaseService {
   }
 
   saveEnrollment(enrollment: Enrollment): Observable<Enrollment | null> {
-    return this.post<Enrollment>('/enrollments', enrollment).pipe(
+    return this.post<Enrollment>(
+      '/enrollments',
+      JSON.stringify(enrollment)
+    ).pipe(
       map((enrollment) => {
         return enrollment;
       }),

@@ -1,1 +1,112 @@
-<p>update-enrollment works!</p>
+<div class="container">
+  <div class="row">
+    <div class="col-md-1 align-self-center">
+      <a class="btn" [routerLink]="['/enrollments/list']">
+        <i class="fa fa-arrow-left" aria-hidden="true"></i>
+      </a>
+    </div>
+    <div class="col-md-11 align-self-center">
+      <h1>Atualizar Matrícula</h1>
+    </div>
+  </div>
+  <form #enrollmentForm="ngForm">
+    <div class="form-group mt-3" *ngIf="students.length > 0">
+      <label for="student">Aluno</label>
+      <select
+        [(ngModel)]="studentId"
+        #student="ngModel"
+        class="form-control"
+        id="student"
+        name="student"
+        required
+      >
+        <option *ngFor="let student of students" [value]="student.id">
+          {{ student.name }}
+        </option>
+      </select>
+      <div
+        *ngIf="student.errors && (student.dirty || student.touched)"
+        class="alert alert-danger"
+      >
+        <div [hidden]="!student.errors['required']">Selecione um aluno.</div>
+      </div>
+    </div>
+
+    <div class="form-group mt-3" *ngIf="courses.length > 0">
+      <label for="course">Curso</label>
+      <select
+        [(ngModel)]="courseId"
+        #course="ngModel"
+        class="form-control"
+        id="course"
+        name="course"
+        required
+      >
+        <option *ngFor="let course of courses" [value]="course.id">
+          {{ course.name }}
+        </option>
+      </select>
+      <div
+        *ngIf="course.errors && (course.dirty || course.touched)"
+        class="alert alert-danger"
+      >
+        <div [hidden]="!course.errors['required']">Selecione um curso.</div>
+      </div>
+    </div>
+
+    <div class="form-group mt-3">
+      <label for="grade">Nota</label>
+      <input
+        [(ngModel)]="enrollment.grade"
+        #grade="ngModel"
+        type="number"
+        class="form-control"
+        id="grade"
+        name="grade"
+        placeholder="Nota"
+        required
+      />
+      <div
+        *ngIf="grade.errors && (grade.dirty || grade.touched)"
+        class="alert alert-danger"
+      >
+        <div [hidden]="!grade.errors['required']">Informe uma nota válida.</div>
+      </div>
+    </div>
+
+    <div class="form-group mt-3">
+      <label for="enrollmentDate">Data de Matrícula</label>
+      <input
+        [(ngModel)]="enrollment.enrollmentDate"
+        #enrollmentDate="ngModel"
+        type="date"
+        class="form-control"
+        id="enrollmentDate"
+        name="enrollmentDate"
+        required
+      />
+      <div
+        *ngIf="
+          enrollmentDate.errors &&
+          (enrollmentDate.dirty || enrollmentDate.touched)
+        "
+        class="alert alert-danger"
+      >
+        <div [hidden]="!enrollmentDate.errors['required']">
+          Informe uma data de matrícula válida.
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group mt-3">
+      <button
+        type="submit"
+        class="btn btn-primary"
+        [disabled]="!enrollmentForm.form.valid"
+        (click)="updateEnrollment()"
+      >
+        <i class="fa fa-save" aria-hidden="true"></i> Atualizar
+      </button>
+    </div>
+  </form>
+</div>

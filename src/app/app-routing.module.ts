@@ -9,6 +9,7 @@ import { UpdateCourseComponent } from './course/update-course/update-course.comp
 import { HomepageComponent } from './home/homepage/homepage.component';
 import { ListEnrollmentComponent } from './enrollment/list-enrollment/list-enrollment.component';
 import { InsertEnrollmentComponent } from './enrollment/insert-enrollment/insert-enrollment.component';
+import { UpdateEnrollmentComponent } from './enrollment/update-enrollment/update-enrollment.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -28,7 +29,7 @@ const routes: Routes = [
   { path: 'enrollments', redirectTo: 'enrollments/list' },
   { path: 'enrollments/list', component: ListEnrollmentComponent },
   { path: 'enrollments/new', component: InsertEnrollmentComponent },
-  { path: 'enrollments/update/:id', component: InsertEnrollmentComponent },
+  { path: 'enrollments/update/:id', component: UpdateEnrollmentComponent },
 ];
 
 @NgModule({
