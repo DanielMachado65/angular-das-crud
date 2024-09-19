@@ -22,6 +22,9 @@ export class UpdateEnrollmentComponent implements OnInit {
   enrollmentId: number | undefined;
   studentId: number | undefined;
   courseId: number | undefined;
+  loadingStudents: boolean = true;
+  loadingCourses: boolean = true;
+  loadingButton: boolean = false;
 
   constructor(
     private enrollmentService: EnrollmentService,
@@ -61,20 +64,29 @@ export class UpdateEnrollmentComponent implements OnInit {
 
   private loadStudents(): void {
     this.studentService.listStudents().subscribe({
-      next: (data: Student[]) => (this.students = data),
-      error: (error) => console.error('Erro ao carregar estudantes:', error),
+      next: (data: Student[]) => {
+        this.students = data;
+      },
+      error: (error) => {
+        console.error('Erro ao carregar estudantes:', error);
+      },
+      complete: () => (this.loadingStudents = false),
     });
   }
 
   private loadCourses(): void {
     this.courseService.listCourses().subscribe({
-      next: (data: Course[]) => (this.courses = data),
-      error: (error) => console.error('Erro ao carregar cursos:', error),
+      next: (data: Course[]) => {
+        this.courses = data;
+      },
+      error: (error) => {
+        console.error('Erro ao carregar cursos:', error);
+      },
+      complete: () => (this.loadingCourses = false),
     });
   }
 
   private assignEnrollmentData(): void {
-    // Associar o objeto student completo com base no ID
     const selectedStudent = Find.findById(this.students, this.studentId);
     const selectedCourse = Find.findById(this.courses, this.courseId);
 
@@ -88,12 +100,14 @@ export class UpdateEnrollmentComponent implements OnInit {
   }
 
   updateEnrollment(): void {
+    this.loadingButton = true;
     if (this.enrollmentForm.form.valid) {
       this.assignEnrollmentData();
 
       this.enrollmentService.updateEnrollment(this.enrollment).subscribe({
         next: () => this.router.navigate(['/enrollments/list']),
         error: (error) => console.error('Erro ao atualizar matrícula:', error),
+        complete: () => (this.loadingButton = false),
       });
     }
   }

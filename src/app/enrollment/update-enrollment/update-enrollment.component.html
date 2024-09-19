@@ -9,10 +9,19 @@
       <h1>Atualizar Matrícula</h1>
     </div>
   </div>
+
   <form #enrollmentForm="ngForm">
-    <div class="form-group mt-3" *ngIf="students.length > 0">
+    <!-- Seção de estudantes -->
+    <div class="form-group mt-3">
       <label for="student">Aluno</label>
+      <div *ngIf="loadingStudents" class="text-center">
+        <div class="spinner-border" role="status">
+          <span class="visually-hidden">Carregando...</span>
+        </div>
+      </div>
+
       <select
+        *ngIf="!loadingStudents && students.length > 0"
         [(ngModel)]="studentId"
         #student="ngModel"
         class="form-control"
@@ -24,17 +33,22 @@
           {{ student.name }}
         </option>
       </select>
-      <div
-        *ngIf="student.errors && (student.dirty || student.touched)"
-        class="alert alert-danger"
-      >
-        <div [hidden]="!student.errors['required']">Selecione um aluno.</div>
+      <div *ngIf="!studentId" class="alert alert-danger">
+        <div>Selecione um aluno.</div>
       </div>
     </div>
 
-    <div class="form-group mt-3" *ngIf="courses.length > 0">
+    <!-- Seção de cursos -->
+    <div class="form-group mt-3">
       <label for="course">Curso</label>
+      <div *ngIf="loadingCourses" class="text-center">
+        <div class="spinner-border" role="status">
+          <span class="visually-hidden">Carregando...</span>
+        </div>
+      </div>
+
       <select
+        *ngIf="!loadingStudents && courses.length > 0"
         [(ngModel)]="courseId"
         #course="ngModel"
         class="form-control"
@@ -46,14 +60,12 @@
           {{ course.name }}
         </option>
       </select>
-      <div
-        *ngIf="course.errors && (course.dirty || course.touched)"
-        class="alert alert-danger"
-      >
-        <div [hidden]="!course.errors['required']">Selecione um curso.</div>
+      <div *ngIf="!courseId" class="alert alert-danger">
+        <div>Selecione um curso.</div>
       </div>
     </div>
 
+    <!-- Seção de nota e data -->
     <div class="form-group mt-3">
       <label for="grade">Nota</label>
       <input
@@ -102,10 +114,16 @@
       <button
         type="submit"
         class="btn btn-primary"
-        [disabled]="!enrollmentForm.form.valid"
+        [disabled]="!enrollmentForm.form.valid || loadingButton"
         (click)="updateEnrollment()"
       >
-        <i class="fa fa-save" aria-hidden="true"></i> Atualizar
+        <div
+          *ngIf="loadingButton"
+          class="spinner-border spinner-border-sm"
+          role="status"
+        ></div>
+        <i *ngIf="!loadingButton" class="fa fa-save" aria-hidden="true"></i>
+        Atualizar
       </button>
     </div>
   </form>

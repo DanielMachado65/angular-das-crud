@@ -20,6 +20,11 @@ export class InsertEnrollmentComponent implements OnInit {
   students: Student[] = [];
   courses: Course[] = [];
 
+  loadingStudents: boolean = true;
+  loadingCourses: boolean = true;
+
+  loadingButton: boolean = false;
+
   constructor(
     private enrollmentService: EnrollmentService,
     private studentService: StudentService,
@@ -40,6 +45,7 @@ export class InsertEnrollmentComponent implements OnInit {
     this.studentService.listStudents().subscribe({
       next: (data: Student[]) => (this.students = data),
       error: (error) => console.error('Erro ao carregar estudantes:', error),
+      complete: () => (this.loadingStudents = false),
     });
   }
 
@@ -47,6 +53,7 @@ export class InsertEnrollmentComponent implements OnInit {
     this.courseService.listCourses().subscribe({
       next: (data: Course[]) => (this.courses = data),
       error: (error) => console.error('Erro ao carregar cursos:', error),
+      complete: () => (this.loadingCourses = false),
     });
   }
 
@@ -73,6 +80,7 @@ export class InsertEnrollmentComponent implements OnInit {
       this.enrollmentService.saveEnrollment(this.enrollment).subscribe({
         next: () => this.router.navigate(['/enrollments/list']),
         error: (error) => console.error('Erro ao salvar matrícula:', error),
+        complete: () => (this.loadingButton = false),
       });
     }
   }

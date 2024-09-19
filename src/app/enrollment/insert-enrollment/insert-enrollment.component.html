@@ -12,48 +12,65 @@
   <form #enrollmentForm="ngForm">
     <div class="form-group mt-3" *ngIf="students.length > 0">
       <label for="student">Aluno</label>
-      <select
-        [(ngModel)]="enrollment.student"
-        #student="ngModel"
-        class="form-control"
-        id="student"
-        name="student"
-        required
-      >
-        <option *ngFor="let student of students" [value]="student.id">
-          {{ student.name }}
-        </option>
-      </select>
-      <div
-        *ngIf="student.errors && (student.dirty || student.touched)"
-        class="alert alert-danger"
-      >
-        <div [hidden]="!student.errors['required']">Selecione um aluno.</div>
+      <div *ngIf="loadingStudents" class="text-center">
+        <div class="spinner-border" role="status">
+          <span class="visually-hidden">Carregando...</span>
+        </div>
+      </div>
+      <div *ngIf="!loadingStudents && students.length > 0">
+        <select
+          [(ngModel)]="enrollment.student"
+          #student="ngModel"
+          class="form-control"
+          id="student"
+          name="student"
+          required
+        >
+          <option *ngFor="let student of students" [value]="student.id">
+            {{ student.name }}
+          </option>
+        </select>
+        <div
+          *ngIf="student.errors && (student.dirty || student.touched)"
+          class="alert alert-danger"
+        >
+          <div [hidden]="!student.errors['required']">Selecione um aluno.</div>
+        </div>
       </div>
     </div>
 
+    <!-- Seção de cursos -->
     <div class="form-group mt-3" *ngIf="courses.length > 0">
       <label for="course">Curso</label>
-      <select
-        [(ngModel)]="enrollment.course"
-        #course="ngModel"
-        class="form-control"
-        id="course"
-        name="course"
-        required
-      >
-        <option *ngFor="let course of courses" [value]="course.id">
-          {{ course.name }}
-        </option>
-      </select>
-      <div
-        *ngIf="course.errors && (course.dirty || course.touched)"
-        class="alert alert-danger"
-      >
-        <div [hidden]="!course.errors['required']">Selecione um curso.</div>
+      <div *ngIf="loadingCourses" class="text-center">
+        <div class="spinner-border" role="status">
+          <span class="visually-hidden">Carregando...</span>
+        </div>
+      </div>
+
+      <div *ngIf="!loadingCourses && courses.length > 0">
+        <select
+          [(ngModel)]="enrollment.course"
+          #course="ngModel"
+          class="form-control"
+          id="course"
+          name="course"
+          required
+        >
+          <option *ngFor="let course of courses" [value]="course.id">
+            {{ course.name }}
+          </option>
+        </select>
+        <div
+          *ngIf="course.errors && (course.dirty || course.touched)"
+          class="alert alert-danger"
+        >
+          <div [hidden]="!course.errors['required']">Selecione um curso.</div>
+        </div>
       </div>
     </div>
 
+    <!-- Seção de nota e data -->
     <div class="form-group mt-3">
       <label for="grade">Nota</label>
       <input
