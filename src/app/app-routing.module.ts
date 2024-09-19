@@ -7,6 +7,8 @@ import { InsertCourseComponent } from './course/insert-course/insert-course.comp
 import { ListCoursesComponent } from './course/list-courses/list-courses.component';
 import { UpdateCourseComponent } from './course/update-course/update-course.component';
 import { HomepageComponent } from './home/homepage/homepage.component';
+import { ListEnrollmentComponent } from './enrollment/list-enrollment/list-enrollment.component';
+import { InsertEnrollmentComponent } from './enrollment/insert-enrollment/insert-enrollment.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -22,6 +24,11 @@ const routes: Routes = [
   { path: 'courses/list', component: ListCoursesComponent },
   { path: 'courses/new', component: InsertCourseComponent },
   { path: 'courses/update/:id', component: UpdateCourseComponent },
+  // enrollments
+  { path: 'enrollments', redirectTo: 'enrollments/list' },
+  { path: 'enrollments/list', component: ListEnrollmentComponent },
+  { path: 'enrollments/new', component: InsertEnrollmentComponent },
+  { path: 'enrollments/update/:id', component: InsertEnrollmentComponent },
 ];
 
 @NgModule({

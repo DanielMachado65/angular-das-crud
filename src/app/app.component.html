@@ -13,17 +13,27 @@
           class="navbar-nav mr-auto mb-2 mb-lg-0 pr-2 nav-pills gap-2"
           style="right: 0"
         >
+          <!-- item alunos -->
           <li class="nav-item">
             <a class="nav-link" [routerLink]="['/students/list']">
               <i class="fas fa-user"></i>
               Alunos</a
             >
           </li>
+          <!-- item cursos -->
           <li class="nav-item">
             <a class="nav-link" [routerLink]="['/courses/list']">
               <i class="fas fa-book"></i>
               Cursos</a
             >
+          </li>
+
+          <!-- item matriculas -->
+          <li class="nav-item">
+            <a class="nav-link" [routerLink]="['/enrollments/list']">
+              <i class="fas fa-list"></i>
+              Matriculas
+            </a>
           </li>
         </ul>
       </div>

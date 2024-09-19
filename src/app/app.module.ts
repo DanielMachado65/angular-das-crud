@@ -8,6 +8,7 @@ import { CourseModule } from './course/course.module';
 import { HomeModule } from './home/home.module';
 import { BaseService } from './shared/services/base.service';
 import { provideHttpClient } from '@angular/common/http';
+import { EnrollmentModule } from './enrollment/enrollment.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -16,6 +17,7 @@ import { provideHttpClient } from '@angular/common/http';
     AppRoutingModule,
     StudentModule,
     CourseModule,
+    EnrollmentModule,
     HomeModule,
   ],
   providers: [BaseService, provideHttpClient()],

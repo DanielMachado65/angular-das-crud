@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Course } from '../../shared/models/course.model';
 import { CourseService } from '../services/course.service';
 
@@ -7,7 +7,7 @@ import { CourseService } from '../services/course.service';
   templateUrl: './list-courses.component.html',
   styleUrl: './list-courses.component.css',
 })
-export class ListCoursesComponent {
+export class ListCoursesComponent implements OnInit {
   courses: Course[] = [];
 
   constructor(private courseService: CourseService) {}

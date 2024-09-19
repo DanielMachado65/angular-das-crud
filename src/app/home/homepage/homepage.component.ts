@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CourseService } from '../../course/services/course.service';
-import { StudentService } from '../../student/services/student.service';
+import { EnrollmentService } from '../../enrollment/services/enrollment.service';
 
 @Component({
   selector: 'app-homepage',
@@ -8,7 +7,16 @@ import { StudentService } from '../../student/services/student.service';
   styleUrl: './homepage.component.css',
 })
 export class HomepageComponent implements OnInit {
-  constructor() {}
+  constructor(private enrollmentService: EnrollmentService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.enrollmentService.listEnrollments().subscribe({
+      next: (enrollments) => {
+        console.log(enrollments);
+      },
+      error: (error) => {
+        console.log(error);
+      },
+    });
+  }
 }
