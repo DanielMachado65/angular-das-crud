@@ -9,6 +9,8 @@ import { HomeModule } from './home/home.module';
 import { BaseService } from './shared/services/base.service';
 import { provideHttpClient } from '@angular/common/http';
 import { EnrollmentModule } from './enrollment/enrollment.module';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [AppComponent],
@@ -19,6 +21,8 @@ import { EnrollmentModule } from './enrollment/enrollment.module';
     CourseModule,
     EnrollmentModule,
     HomeModule,
+    BrowserAnimationsModule,
+    NgxChartsModule,
   ],
   providers: [BaseService, provideHttpClient()],
   bootstrap: [AppComponent],

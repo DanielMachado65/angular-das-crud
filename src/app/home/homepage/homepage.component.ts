@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { EnrollmentService } from '../../enrollment/services/enrollment.service';
+import { DashboardService } from '../services/dashboard.service';
+
+export interface ChartDataItem {
+  name: string;
+  value: number;
+}
 
 @Component({
   selector: 'app-homepage',
@@ -7,12 +12,14 @@ import { EnrollmentService } from '../../enrollment/services/enrollment.service'
   styleUrl: './homepage.component.css',
 })
 export class HomepageComponent implements OnInit {
-  constructor(private enrollmentService: EnrollmentService) {}
+  data: ChartDataItem[] = [];
+
+  constructor(private dashboardService: DashboardService) {}
 
   ngOnInit(): void {
-    this.enrollmentService.listEnrollments().subscribe({
-      next: (enrollments) => {
-        console.log(enrollments);
+    this.dashboardService.getDashboard().subscribe({
+      next: (metrics) => {
+        this.data = metrics;
       },
       error: (error) => {
         console.log(error);
