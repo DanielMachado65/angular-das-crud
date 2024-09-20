@@ -1,71 +1,131 @@
 <div class="container">
-    <div class="row">
-        <div class="col-md-1 align-self-center">
-            <a class="btn" [routerLink]="['/students/list']">
-                <i class="fa fa-arrow-left" aria-hidden="true"></i>
-            </a>
-        </div>
-        <div class="col-md-11 align-self-center">
-            <h1>Novo aluno</h1>
-        </div>
+  <div class="row">
+    <div class="col-md-1 align-self-center">
+      <a class="btn" [routerLink]="['/students/list']">
+        <i class="fa fa-arrow-left" aria-hidden="true"></i>
+      </a>
     </div>
-    <form #studentForm="ngForm" (ngSubmit)="insertStudent()">
-        <div class="form-group mt-3">
-            <label for="name">Nome</label>
-            <input [(ngModel)]="student.name" #name="ngModel" type="text" class="form-control" id="name" name="name"
-                minlength="3" placeholder="Nome" required />
-            <div *ngIf="name.errors && (name.dirty || name.touched)" class="alert alert-danger">
-                <div *ngIf="name.errors['required']">
-                    Digite um nome válido!
-                </div>
-                <div *ngIf="name.errors['minlength']">
-                    O nome deve conter no mínimo 3 caracteres.
-                </div>
-            </div>
+    <div class="col-md-11 align-self-center">
+      <h1>Novo aluno</h1>
+    </div>
+  </div>
+  <form #studentForm="ngForm" (ngSubmit)="insertStudent()">
+    <div class="form-group mt-3">
+      <label for="name">Nome</label>
+      <input
+        [(ngModel)]="student.name"
+        #name="ngModel"
+        type="text"
+        class="form-control"
+        id="name"
+        name="name"
+        minlength="3"
+        placeholder="Nome"
+        required
+      />
+      <div
+        *ngIf="name.errors && (name.dirty || name.touched)"
+        class="alert alert-danger"
+      >
+        <div *ngIf="name.errors['required']">Digite um nome válido!</div>
+        <div *ngIf="name.errors['minlength']">
+          O nome deve conter no mínimo 3 caracteres.
         </div>
-        <div class="form-group mt-3">
-            <label for="cpf">CPF*</label>
-            <input [(ngModel)]="student.cpf" #cpf="ngModel" type="text" class="form-control" id="cpf" name="cpf"
-                (ngModelChange)="formatCpfCnpj()" placeholder="CPF" required minlength="11" maxlength="14" />
-            <div *ngIf="cpf.errors && (cpf.dirty || cpf.touched)" class="alert alert-danger">
-                <div *ngIf="cpf.errors['required']">
-                    Digite um CPF válido!
-                </div>
-                <div *ngIf="cpf.errors['minlength']">
-                    O CPF deve conter no mínimo 11 caracteres.
-                </div>
-                <div *ngIf="cpf.errors['maxlength']">
-                    O CPF deve conter no máximo 11 caracteres.
-                </div>
-            </div>
+      </div>
+    </div>
+    <div class="form-group mt-3">
+      <label for="cpf">CPF*</label>
+      <input
+        [(ngModel)]="student.cpf"
+        #cpf="ngModel"
+        type="text"
+        class="form-control"
+        id="cpf"
+        name="cpf"
+        (ngModelChange)="formatCpfCnpj()"
+        placeholder="CPF"
+        required
+        minlength="11"
+        maxlength="14"
+      />
+      <div
+        *ngIf="cpf.errors && (cpf.dirty || cpf.touched)"
+        class="alert alert-danger"
+      >
+        <div *ngIf="cpf.errors['required']">Digite um CPF válido!</div>
+        <div *ngIf="cpf.errors['minlength']">
+          O CPF deve conter no mínimo 11 caracteres.
         </div>
-        <div class="form-group mt-3">
-            <label for="email">Email*</label>
-            <input [(ngModel)]="student.email" #email="ngModel" type="email" class="form-control" id="email"
-                name="email" placeholder="Email" required (ngModelChange)="formatEmail()" />
-            <div *ngIf="email.errors && (email.dirty || email.touched)" class="alert alert-danger">
-                <div *ngIf="email.errors['required']">
-                    Digite um email válido!
-                </div>
-                <div *ngIf="email.errors['email']">
-                    O formato do email está incorreto!
-                </div>
-            </div>
+        <div *ngIf="cpf.errors['maxlength']">
+          O CPF deve conter no máximo 11 caracteres.
         </div>
-        <div class="form-group mt-3">
-            <label for="birthDate">Data de nascimento*</label>
-            <input [(ngModel)]="student.birthDate" #birthDate="ngModel" type="date" class="form-control" id="birthDate"
-                name="birthDate" placeholder="Data de nascimento" required />
-            <div *ngIf="birthDate.errors && (birthDate.dirty || birthDate.touched)" class="alert alert-danger">
-                <div *ngIf="birthDate.errors['required']">
-                    Digite uma data de nascimento válida!
-                </div>
-            </div>
+      </div>
+    </div>
+    <div class="form-group mt-3">
+      <label for="email">Email*</label>
+      <input
+        [(ngModel)]="student.email"
+        #email="ngModel"
+        type="email"
+        class="form-control"
+        id="email"
+        name="email"
+        placeholder="Email"
+        required
+        (ngModelChange)="formatEmail()"
+      />
+      <div
+        *ngIf="email.errors && (email.dirty || email.touched)"
+        class="alert alert-danger"
+      >
+        <div *ngIf="email.errors['required']">Digite um email válido!</div>
+        <div *ngIf="email.errors['email']">
+          O formato do email está incorreto!
         </div>
-        <div class="form-group mt-3">
-            <button type="submit" class="btn btn-primary" [disabled]="!studentForm.form.valid">
-                <i class="fa fa-save" aria-hidden="true"></i> Salvar
-            </button>
+      </div>
+    </div>
+
+    <!-- Seção de data de nascimento -->
+    <div class="form-group mt-3">
+      <label for="birthDate">Data de nascimento*</label>
+      <input
+        [(ngModel)]="student.birthDate"
+        #birthDate="ngModel"
+        type="date"
+        class="form-control"
+        id="birthDate"
+        validarData
+        name="birthDate"
+        placeholder="Data de nascimento"
+        required
+      />
+      <div
+        *ngIf="birthDate.errors && (birthDate.dirty || birthDate.touched)"
+        class="alert alert-danger"
+      >
+        <div *ngIf="birthDate.errors['required']">
+          Digite uma data de nascimento válida!
         </div>
-    </form>
+        <div *ngIf="birthDate.errors['dataInvalida']">
+          Data inválida! Por favor, insira uma data correta.
+        </div>
+        <div *ngIf="birthDate.errors['dataFutura']">
+          A data de nascimento não pode ser no futuro!
+        </div>
+        <div *ngIf="birthDate.errors['dataMuitoAntiga']">
+          A data é muito antiga. Insira uma data após 01/01/1900.
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group mt-3">
+      <button
+        type="submit"
+        class="btn btn-primary"
+        [disabled]="!studentForm.form.valid"
+      >
+        <i class="fa fa-save" aria-hidden="true"></i> Salvar
+      </button>
+    </div>
+  </form>
 </div>

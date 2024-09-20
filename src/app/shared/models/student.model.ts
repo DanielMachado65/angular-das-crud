@@ -4,6 +4,6 @@ export class Student {
     public name?: string,
     public cpf?: string,
     public email?: string,
-    public birthDate?: string,
+    public birthDate?: string
   ) {}
 }
