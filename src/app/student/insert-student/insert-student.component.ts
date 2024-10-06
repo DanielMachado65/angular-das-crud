@@ -3,6 +3,7 @@ import { NgForm } from '@angular/forms';
 import { StudentService } from '../services/student.service';
 import { Student } from '../../shared/models/student.model';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-insert-student',
@@ -13,16 +14,25 @@ export class InsertStudentComponent {
   @ViewChild('studentForm') studentForm!: NgForm;
   student: Student = new Student();
 
-  constructor(private studentService: StudentService, private router: Router) {}
+  constructor(
+    private studentService: StudentService,
+    private router: Router,
+    private toastr: ToastrService
+  ) {}
 
   insertStudent(): void {
     if (this.studentForm.form.valid) {
       this.studentService.saveStudent(this.student).subscribe({
         next: () => {
+          this.toastr.success('Aluno cadastrado com sucesso.');
           this.router.navigate(['/students/list']);
         },
         error: (error) => {
-          console.log(error);
+          if (error.status === 409) {
+            this.toastr.error('Este CPF já está cadastrado.');
+          } else {
+            this.toastr.error(error.error.message);
+          }
         },
       });
     }

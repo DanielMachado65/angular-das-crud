@@ -12,8 +12,8 @@ export class StudentService extends BaseService {
       map((students) => {
         return students ? students : [];
       }),
-      catchError(() => {
-        return of([]);
+      catchError((error) => {
+        throw error;
       })
     );
   }
@@ -23,8 +23,8 @@ export class StudentService extends BaseService {
       map((student) => {
         return student ? student : null;
       }),
-      catchError(() => {
-        return of(null);
+      catchError((error) => {
+        throw error;
       })
     );
   }
@@ -34,8 +34,8 @@ export class StudentService extends BaseService {
       map((student) => {
         return student;
       }),
-      catchError(() => {
-        return of(student);
+      catchError((error) => {
+        throw error;
       })
     );
   }
@@ -45,8 +45,8 @@ export class StudentService extends BaseService {
       map((student) => {
         return student;
       }),
-      catchError(() => {
-        return of(student);
+      catchError((error) => {
+        throw error;
       })
     );
   }
@@ -56,8 +56,8 @@ export class StudentService extends BaseService {
       map((student) => {
         return student;
       }),
-      catchError(() => {
-        return of(student);
+      catchError((error) => {
+        throw error;
       })
     );
   }

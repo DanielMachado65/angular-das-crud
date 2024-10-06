@@ -8,6 +8,7 @@ import { Course } from '../../shared/models/course.model';
 import { CourseService } from '../../course/services/course.service';
 import { StudentService } from '../../student/services/student.service';
 import { Find } from '../../shared/utils/find.utils';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-insert-enrollment',
@@ -29,7 +30,8 @@ export class InsertEnrollmentComponent implements OnInit {
     private enrollmentService: EnrollmentService,
     private studentService: StudentService,
     private courseService: CourseService,
-    private router: Router
+    private router: Router,
+    private toastr: ToastrService
   ) {}
 
   ngOnInit(): void {
@@ -78,7 +80,10 @@ export class InsertEnrollmentComponent implements OnInit {
       this.assignEnrollmentData();
 
       this.enrollmentService.saveEnrollment(this.enrollment).subscribe({
-        next: () => this.router.navigate(['/enrollments/list']),
+        next: () => {
+          this.toastr.success('Matrícula cadastrada com sucesso.');
+          this.router.navigate(['/enrollments/list']);
+        },
         error: (error) => console.error('Erro ao salvar matrícula:', error),
         complete: () => (this.loadingButton = false),
       });

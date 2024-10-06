@@ -11,6 +11,7 @@ import { provideHttpClient } from '@angular/common/http';
 import { EnrollmentModule } from './enrollment/enrollment.module';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [AppComponent],
@@ -23,6 +24,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     HomeModule,
     BrowserAnimationsModule,
     NgxChartsModule,
+    ToastrModule.forRoot({
+      timeOut: 3000,
+      positionClass: 'toast-top-right',
+      preventDuplicates: true,
+    }),
   ],
   providers: [BaseService, provideHttpClient()],
   bootstrap: [AppComponent],
